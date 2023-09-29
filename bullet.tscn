@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://bplb44r5nx0c"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_5qe6e"]
+[ext_resource type="Texture2D" uid="uid://deorke66cuoik" path="res://Assets/Mini Pixel Pack 3/Projectiles/Player_charged_beam (16 x 16).png" id="1_atwia"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psn7u"]
+atlas = ExtResource("1_atwia")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o0ch"]
+atlas = ExtResource("1_atwia")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fi3t8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psn7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o0ch")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7eia1"]
+size = Vector2(16, 16)
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_5qe6e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_atwia")
+hframes = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+sprite_frames = SubResource("SpriteFrames_fi3t8")
+autoplay = "default"
+frame_progress = 0.351483
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7eia1")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

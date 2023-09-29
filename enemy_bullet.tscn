@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://dfn418odsfm6c"]
+
+[ext_resource type="Texture2D" uid="uid://qli7bfgyxamo" path="res://Assets/Mini Pixel Pack 3/Projectiles/Enemy_projectile (16 x 16).png" id="1_5ibjb"]
+[ext_resource type="Script" path="res://enemy_bullet.gd" id="1_faobk"]
+[ext_resource type="AudioStream" uid="uid://5qnpw1f5giwa" path="res://Assets/audio/mixkit-glass-hitting-a-metal-2183.ogg" id="3_niuey"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpubb"]
+atlas = ExtResource("1_5ibjb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dq0eu"]
+atlas = ExtResource("1_5ibjb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qmfm"]
+atlas = ExtResource("1_5ibjb")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw2m1"]
+atlas = ExtResource("1_5ibjb")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jkxp6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpubb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dq0eu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qmfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw2m1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1171e"]
+radius = 4.0
+
+[node name="EnemyBullet" type="Area2D"]
+script = ExtResource("1_faobk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5ibjb")
+hframes = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+sprite_frames = SubResource("SpriteFrames_jkxp6")
+autoplay = "default"
+frame_progress = 0.460685
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1171e")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="BulletHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_niuey")
+volume_db = 1.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="finished" from="BulletHit" to="." method="_on_bullet_hit_finished"]

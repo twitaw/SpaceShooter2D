@@ -2,15 +2,15 @@
 Game Tutorial - https://kidscancode.org/godot_recipes/4.x/games/first_2d/index.html
 
 Controls - 
-Movement: WASD
-Shoot: Space
-Mute BG Music: M
-Quit Game: Q
-Starts Game: Enter
+* Movement: WASD
+* Shoot: Space
+* Mute BG Music: M
+* Quit Game: Q
+* Starts Game: Enter
 
 Drop Item:
-Shield: S
-Faster Gun: C
+* Shield: S
+* Faster Gun: C
 
 
 
